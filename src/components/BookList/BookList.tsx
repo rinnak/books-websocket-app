@@ -90,12 +90,14 @@ export function BookList({books, refetch}: Props) {
 
     return(
         <div>
-            <input  placeholder="Поиск" value = {search} onChange={(e) => setSearch(e.target.value)} className="border p-2 rounded-xl"/>
-            <select onChange={(e) => setSort(e.target.value)} className="border p-2 rounded-xl ml-2">
-                <option value = "name">По названию</option>
-                <option value="year">По году</option>
-            </select>
-            <h1 className="font-bold text-3xl font-bold ">Каталог книг</h1>
+            <div className="flex flex-row gap-2 mt-12">
+                <input  placeholder="Поиск" value = {search} onChange={(e) => setSearch(e.target.value)} className="border p-2 rounded-xl"/>
+                <select onChange={(e) => setSort(e.target.value)} className="border p-2 rounded-xl ml-2">
+                    <option value = "name">По названию</option>
+                    <option value="year">По году</option>
+                </select>
+            </div>
+            <h1 className="font-bold text-3xl font-bold mt-2 mb-4">Каталог книг</h1>
             {editingBook && (
                 <BookForm onSubmit={handleUpdate} initialData={{
                     name: editingBook.name,
@@ -116,7 +118,7 @@ export function BookList({books, refetch}: Props) {
                         <h2 className="text-xl font-semibold">{book.name}</h2>
                         <button onClick={() => handleDelete(book.id)} className="mt-4 mr-2 px-4 py-2 cursor-pointer bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition">Удалить</button>
                         <button onClick={() => handleChangeName(book.id, book.name)} className="mt-4 px-4 py-2 cursor-pointer bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition">Изменить название</button>
-                        <button onClick={() => setEditingBook(book)} className="mt-4 px-4 py-2 cursor-pointer bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition">Редактировать</button>
+                        <button onClick={() => setEditingBook(book)} className="mt-2 px-4 py-2 cursor-pointer bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition">Редактировать</button>
                         {book.year_of_release && <p>Год выпуска: {book.year_of_release}</p>}
                         {book.description && <p>{book.description}</p>}
 

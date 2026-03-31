@@ -3,6 +3,7 @@ import {BookForm} from "./components/BookForm/BookForm";
 import type {BookFormValues} from "./components/BookForm/BookForm";
 import {BookList} from "./components/BookList/BookList";
 import {api} from "./services/api"
+import Chat from "./components/Chat/Chat.tsx";
 
 function App() {
     const {books, refetch} = useBooks();
@@ -38,7 +39,10 @@ function App() {
 
     return(
         <div className="max-w-7xl mx-auto p-6 space-y-6">
-            <BookForm onSubmit={handleCreate} />
+            <div className=" flex flex-row mb-2 gap-4">
+                <div className="min-w-90 min-h-full"><BookForm onSubmit={handleCreate} /> </div>
+                <div className="w-full"><Chat /></div>
+            </div>
             <BookList books={books} refetch={refetch} />
         </div>
     );
