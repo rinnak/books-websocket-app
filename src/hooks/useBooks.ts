@@ -13,6 +13,7 @@ export const useBooks = () => {
         try{
             setLoading(true);
             const data = await getBooks();
+            console.log(data);
             setBooks(data);
             setError(null);
         }

@@ -8,15 +8,16 @@ export type BookFormValues = {
 }
 type Props = {
     onSubmit: (data: BookFormValues) => void;
+    initialData?: Partial<BookFormValues>;
 }
-export function BookForm({onSubmit}: Props){
+export function BookForm({onSubmit, initialData}: Props){
     const{
         register,
         handleSubmit,
         reset,
         formState: {errors}
     } = useForm<BookFormValues>({
-        defaultValues:{
+        defaultValues: initialData || {
             year_of_release: 2026,
             description: "",
             name: ""

@@ -6,7 +6,10 @@ import {api} from "./services/api"
 
 function App() {
     const {books, refetch} = useBooks();
+    console.log("Список книг с сервера:", books);
+    console.log("ID книг:", books.map(b => b.id));
     const handleCreate = async (data: BookFormValues) => {
+
         try{
             let imgName: string | null = null;
             if (data.image && data.image.length > 0) {
@@ -36,7 +39,7 @@ function App() {
     return(
         <div className="max-w-7xl mx-auto p-6 space-y-6">
             <BookForm onSubmit={handleCreate} />
-            <BookList books={books} />
+            <BookList books={books} refetch={refetch} />
         </div>
     );
 }

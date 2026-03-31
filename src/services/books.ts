@@ -1,5 +1,5 @@
 import {api} from "./api";
-import type {Book,  UpdateBook} from "../types";
+import type {Book,  UpdateBook, UpdateBookRequest} from "../types";
 
 export const getBooks = async (): Promise<Book[]> => {
     const response = await api.get("/book");
@@ -16,7 +16,7 @@ export const createBook = async (data: FormData): Promise<Book> => {
     return response.data;
 }
 
-export const updateBook = async (id: number, data: Book): Promise<Book> => {
+export const updateBook = async (id: number, data: UpdateBookRequest): Promise<Book> => {
     const response = await api.put(`/book/`,  data,  {params: { id }});
     return response.data;
 }

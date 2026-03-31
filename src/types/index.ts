@@ -20,3 +20,12 @@ export interface Book {
 
 //partial утилитарный тип, делает все свойства необязательными
 export type UpdateBook = Partial<Book>;
+
+export type UpdateBookRequest = {
+    name: string;
+    year_of_release: number;
+    description: string;
+    image: string | null;
+    genre: number[];
+    author: number[];
+}
