@@ -60,7 +60,11 @@ export default function Chat(){
     const connect = useCallback(() => {
         const name = userName.trim();
         if(!name) return alert("Введите имя пользователя");
-        const ws = new WebSocket("ws://158.160.203.172:8082");
+        const ws = new WebSocket(
+            window.location.hostname === 'localhost'
+                ? "ws://158.160.203.172:8082"
+                : "wss://158.160.203.172:8082"
+        );
         socketRef.current = ws;
 
         ws.onopen = () => {
