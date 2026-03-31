@@ -17,16 +17,16 @@ export const createBook = async (data: FormData): Promise<Book> => {
 }
 
 export const updateBook = async (id: number, data: UpdateBookRequest): Promise<Book> => {
-    const response = await api.put(`/book/`,  data,  {params: { id }});
+    const response = await api.patch(`/book?id=${id}`, data);
     return response.data;
 }
 
 export const patchBook = async (id: number, data: UpdateBook): Promise<Book> => {
-    const response = await api.patch(`/book/`, data,  {params: { id }});
+    const response = await api.patch(`/book?id=${id}`, data);
     return response.data;
 }
 
 export const deleteBook = async (id: number): Promise<void> => {
-    await api.delete("/book/", { params: { id }});
+    await api.delete(`/book?id=${id}`);
 
 }

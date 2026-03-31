@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useRef, useState} from "react";
-type Packet<T = any> = { //структура, отправляемая через сокет
+type Packet<T = unknown> = { //структура, отправляемая через сокет
     type: string;
     data?: T
 };
@@ -44,13 +44,30 @@ export default function Chat(){
                 setConnected(true);
                 break
             case "incomingMessage":
-                addToChat(`${data.name}: ${data.message}`);
+                if (data && typeof data === "object" && "name" in data && "message" in data) {
+                    addToChat(`${data.name}: ${data.message}`);
+                }
                 break;
             case "systemMessage":
-                addToChat(`system: ${data.message}`, true);
+                if (
+                    data &&
+                    typeof data === "object" &&
+                    "message" in data &&
+                    typeof (data as { message: string }).message === "string"
+                ) {
+                    addToChat(`system: ${(data as { message: string }).message}`, true);
+                }
                 break;
+
             case "error":
-                addToChat(`error: ${data.message}`, true);
+                if (
+                    data &&
+                    typeof data === "object" &&
+                    "message" in data &&
+                    typeof (data as { message: string }).message === "string"
+                ) {
+                    addToChat(`error: ${(data as { message: string }).message}`, true);
+                }
                 break;
             default:
                 addToChat(`Неизвестный пакет: ${type}`, true);
