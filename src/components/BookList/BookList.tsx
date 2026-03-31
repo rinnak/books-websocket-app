@@ -10,7 +10,28 @@ type Props = {
 }
 
 export function BookList({books, refetch}: Props) {
+
     const [editingBook, setEditingBook] = useState<Book | null>(null);
+    const [search, setSearch] = useState("");
+    const [sort, setSort] = useState("");
+
+    const processedBooks = books.
+        filter(book =>
+        book.name.toLowerCase().includes(search.toLowerCase())
+        )
+        .sort((a, b) => {
+            if (sort == "name"){
+                return a.name.localeCompare(b.name);
+            }
+            if (sort == "year"){
+                return a.year_of_release - b.year_of_release;
+            }
+            return 0;
+        }
+
+    )
+
+
     const handleDelete = async (id: number) => {
         try{
             await deleteBook(id);
@@ -69,6 +90,11 @@ export function BookList({books, refetch}: Props) {
 
     return(
         <div>
+            <input  placeholder="Поиск" value = {search} onChange={(e) => setSearch(e.target.value)} className="border p-2 rounded-xl"/>
+            <select onChange={(e) => setSort(e.target.value)} className="border p-2 rounded-xl ml-2">
+                <option value = "name">По названию</option>
+                <option value="year">По году</option>
+            </select>
             <h1 className="font-bold text-3xl font-bold ">Каталог книг</h1>
             {editingBook && (
                 <BookForm onSubmit={handleUpdate} initialData={{
@@ -80,7 +106,7 @@ export function BookList({books, refetch}: Props) {
             )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {books.map((book) => (
+                {processedBooks.map((book) => (
                     <div key={book.id} className="border rounded-xl p-4">
                         <img src={
                             book.image
