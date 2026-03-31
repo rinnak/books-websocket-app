@@ -112,7 +112,9 @@ export function BookList({books, refetch}: Props) {
                     <div key={book.id} className="border rounded-xl p-4">
                         <img src={
                             book.image
-                                ? `http://158.160.203.172:8080/image/${book.image}`
+                                ? (window.location.hostname === "localhost"
+                                    ? `http://158.160.203.172:8080/image/${book.image}`
+                                    : `/api/image/${book.image}`)
                                 : "/placeholder.png"
                         } alt={book.name} className="w-full h-48 object-cover rounded-xl mb-2"/>
                         <h2 className="text-xl font-semibold">{book.name}</h2>
