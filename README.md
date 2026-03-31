@@ -1,3 +1,12 @@
+# Book Catalog with Chat
+
+Приложение реализует:
+
+- Каталог книг: просмотр, добавление, редактирование, удаление
+- Загрузка изображений для книг
+- WebSocket чат между пользователями
+- Фильтрация и сортировка книг 
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
